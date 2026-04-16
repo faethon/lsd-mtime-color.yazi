@@ -74,19 +74,13 @@ prepend_keymap = [
     { on = [ "m", "k" ], run = "linemode lsd_mtime",
       desc = "Linemode: lsd mtime" },
 
-    # Sorting does not override linemode (recommended by barbanevosa/linemode-plus)
-    { on = [ ",", "m" ], run = [ "sort mtime --reverse=no" ],
-      desc = "Sort by modified time" },
-    { on = [ ",", "M" ], run = [ "sort mtime --reverse=yes" ],
-      desc = "Sort by modified time (reverse)" },
-    { on = [ ",", "b" ], run = [ "sort btime --reverse=no" ],
-      desc = "Sort by birth time" },
-    { on = [ ",", "B" ], run = [ "sort btime --reverse=yes" ],
-      desc = "Sort by birth time (reverse)" },
-    { on = [ ",", "s" ], run = [ "sort size --reverse=no" ],
-      desc = "Sort by size" },
-    { on = [ ",", "S" ], run = [ "sort size --reverse=yes" ],
-      desc = "Sort by size (reverse)" },
+    # Sorting does not override linemode (from recommendeds by barbanevosa/linemode-plus)
+    { on = [ ",", "m" ], run = [ "sort mtime --reverse=no" ], desc = "Sort by modified time" },
+    { on = [ ",", "M" ], run = [ "sort mtime --reverse=yes" ], desc = "Sort by modified time (reverse)" },
+    { on = [ ",", "b" ], run = [ "sort btime --reverse=no" ], desc = "Sort by birth time" },
+    { on = [ ",", "B" ], run = [ "sort btime --reverse=yes" ], desc = "Sort by birth time (reverse)" },
+    { on = [ ",", "s" ], run = [ "sort size --reverse=no" ], desc = "Sort by size" },
+    { on = [ ",", "S" ], run = [ "sort size --reverse=yes" ], desc = "Sort by size (reverse)" },
 ]
 ```
 
