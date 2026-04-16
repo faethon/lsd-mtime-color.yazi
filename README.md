@@ -39,8 +39,8 @@ require("lsd-mtime-color"):setup({
   color_hour      = "#00d700",  -- colour for < 1 hour
   color_day       = "#00d787",  -- colour for < 1 day
   color_older     = "#00af87",  -- colour for older files
-  yazi_age_format = false,     -- show distinct detailed timestamp based on age
-  width           = 12                   -- width to use for padding timestamps
+  yazi_age_format = false,      -- show distinct detailed timestamp based on age
+  width           = 12          -- width to use for padding timestamps
 })
 ```
 
