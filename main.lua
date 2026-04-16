@@ -5,7 +5,7 @@
 --   older         →  teal/cyan
 --
 -- Installation:
---   ya pkg add <your-repo>/lsd-mtime-color
+--   ya pkg add faethon/lsd-mtime-color
 --   OR copy this file to ~/.config/yazi/plugins/lsd-mtime-color.yazi/main.lua
 --
 -- Setup in ~/.config/yazi/init.lua:
