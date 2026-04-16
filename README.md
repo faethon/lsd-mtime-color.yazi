@@ -69,10 +69,8 @@ Bind keys to toggle between both modes in `~/.config/yazi/keymap.toml`:
 [mgr]
 prepend_keymap = [
     # linemode-lsd plugin
-    { on = [ "m", "l" ], run = "linemode lsd_size_mtime",
-      desc = "Linemode: lsd size+mtime" },
-    { on = [ "m", "k" ], run = "linemode lsd_mtime",
-      desc = "Linemode: lsd mtime" },
+    { on = [ "m", "l" ], run = "linemode lsd_size_mtime", desc = "Linemode: lsd size+mtime" },
+    { on = [ "m", "k" ], run = "linemode lsd_mtime", desc = "Linemode: lsd mtime" },
 
     # Sorting does not override linemode (from recommendeds by barbanevosa/linemode-plus)
     { on = [ ",", "m" ], run = [ "sort mtime --reverse=no" ], desc = "Sort by modified time" },
