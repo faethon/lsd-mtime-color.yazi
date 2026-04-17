@@ -12,11 +12,13 @@
 --   require("lsd-mtime-color"):setup()
 --   -- Optional custom thresholds (in seconds):
 --   require("lsd-mtime-color"):setup({
---     hour_threshold = 3600,        -- files newer than this → bright green
---     day_threshold  = 86400,       -- files newer than this → green
+--     hour_threshold = 3600,        -- files newer than this -> bright green
+--     day_threshold  = 86400,       -- files newer than this -> green
+--     month_threshold = 2592000,    -- files newer than this -> teal
 --     color_hour  = "#00d700",      -- bright green
 --     color_day   = "#00d787",      -- green
---     color_older = "#00af87",      -- teal
+--     color_month = "#00af87",      -- teal
+--     color_older = "#00875f",      -- dark teal
 --     yazi_age_format = false,      -- show distinct detailed timestamp based on age
 --     width = 12                    -- widht to use for padding timestamps
 --   })
@@ -31,9 +33,11 @@
 local DEFAULT = {
 	hour_threshold = 3600, -- 1 hour in seconds
 	day_threshold = 86400, -- 1 day  in seconds
+	month_threshold = 2592000, -- 30 days in seconds
 	color_hour = "#00d700",
 	color_day = "#00d787",
-	color_older = "#00af87",
+	color_month = "#00af87",
+	color_older = "#00875f",
 	yazi_age_format = false,
 	width = 12,
 }
@@ -75,6 +79,8 @@ local function fmt_mtime_colored(mtime_secs)
 		color = CFG.color_hour
 	elseif age < CFG.day_threshold then
 		color = CFG.color_day
+	elseif age < CFG.month_threshold then
+		color = CFG.color_month
 	else
 		color = CFG.color_older
 	end
@@ -109,6 +115,7 @@ local _load_config = ya.sync(function(_, opts)
 	CFG.day_threshold = opts.day_threshold or DEFAULT.day_threshold
 	CFG.color_hour = opts.color_hour or DEFAULT.color_hour
 	CFG.color_day = opts.color_day or DEFAULT.color_day
+	CFG.color_month = opts.color_month or DEFAULT.color_month
 	CFG.color_older = opts.color_older or DEFAULT.color_older
 	CFG.yazi_age_format = opts.yazi_age_format or DEFAULT.yazi_age_format
 	CFG.width = opts.width or DEFAULT.width

@@ -36,9 +36,11 @@ Or with custom options
 require("lsd-mtime-color"):setup({
   hour_threshold  = 3600,       -- seconds in an hour
   day_threshold   = 86400,      -- seconds in a day
+  month_threshold = 2592000,    -- seconds in 30 days
   color_hour      = "#00d700",  -- colour for < 1 hour
   color_day       = "#00d787",  -- colour for < 1 day
-  color_older     = "#00af87",  -- colour for older files
+  color_month     = "#00af87",  -- colour for < 30 days
+  color_older     = "#00875f",  -- colour for older
   yazi_age_format = false,      -- show distinct detailed timestamp based on age
   width           = 12          -- width to use for padding timestamps
 })
