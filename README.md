@@ -4,17 +4,21 @@ A [Yazi](https://github.com/sxyazi/yazi) linemode plugin that colours file
 modification times and file sizes similar to **LSD (LSDeluxe)**
 
 Coloring of timestamp based on age:
+```
    < 1 hour ago  -->  bright green
    < 1 day ago   -->  green
    < 30 days ago -->  teal
    older         -->  dark teal
+```
 
 Coloring of file size based on size:
+```
    0 B           --> gray
    < 1KB         --> light yellow
    < 1MB         --> yellow
    < 100MB       --> orange
    larger        --> dark orange
+```
 
 The colours can be configured, as well as the thresholds for age and size.
 
