@@ -38,6 +38,14 @@ local DEFAULT = {
 	color_day = "#00d787",
 	color_month = "#00af87",
 	color_older = "#00875f",
+	size_small_threshold = 1024, -- < 1 KB
+	size_medium_threshold = 1024 * 1024, -- < 1 MB
+	size_large_threshold = 100 * 1024 * 1024, -- < 100 MB
+	color_size_none = "#6c6c6c",
+	color_size_small = "#ffffaf",
+	color_size_medium = "#ffd787",
+	color_size_large = "#ffaf5f",
+	color_size_huge = "#ff8700",
 	yazi_age_format = false,
 	width = 12,
 }
@@ -55,13 +63,48 @@ local function pad(text)
 	return string.format("%-" .. CFG.width .. "s", text)
 end
 
+-- classify based on size
+local function classify_size(sz)
+	if not sz or sz == 0 then
+		return "none"
+	elseif sz <= CFG.size_small_threshold then
+		return "small"
+	elseif sz <= CFG.size_medium_threshold then
+		return "medium"
+	elseif sz <= CFG.size_large_threshold then
+		return "large"
+	else
+		return "huge"
+	end
+end
+
+-- select color bracket for size
+local function size_color(class)
+	if class == "none" then
+		return CFG.color_size_none
+	elseif class == "small" then
+		return CFG.color_size_small
+	elseif class == "medium" then
+		return CFG.color_size_medium
+	elseif class == "large" then
+		return CFG.color_size_large
+	else
+		return CFG.color_size_huge
+	end
+end
+
 -- Human-readable file size
-local function fmt_size(file)
+local function fmt_size_colored(file)
 	local sz = file:size()
 	if not sz then
-		return "  -"
+		return ui.Span("  -")
 	end
-	return ya.readable_size(sz)
+
+	local class = classify_size(sz)
+	local color = size_color(class)
+	local text = string.format("%7s", ya.readable_size(sz))
+
+	return colored_span(text, color)
 end
 
 -- Format mtime timestamp and pick mathcing color
@@ -118,6 +161,14 @@ local _load_config = ya.sync(function(_, opts)
 	CFG.color_day = opts.color_day or DEFAULT.color_day
 	CFG.color_month = opts.color_month or DEFAULT.color_month
 	CFG.color_older = opts.color_older or DEFAULT.color_older
+	CFG.size_small_threshold = opts.size_small_threshold or DEFAULT.size_small_threshold
+	CFG.size_medium_threshold = opts.size_medium_threshold or DEFAULT.size_medium_threshold
+	CFG.size_large_threshold = opts.size_large_threshold or DEFAULT.size_large_threshold
+	CFG.color_size_none = opts.color_size_none or DEFAULT.color_size_none
+	CFG.color_size_small = opts.color_size_small or DEFAULT.color_size_small
+	CFG.color_size_medium = opts.color_size_medium or DEFAULT.color_size_medium
+	CFG.color_size_large = opts.color_size_large or DEFAULT.color_size_large
+	CFG.color_size_huge = opts.color_size_huge or DEFAULT.color_size_huge
 	CFG.yazi_age_format = opts.yazi_age_format or DEFAULT.yazi_age_format
 	CFG.width = opts.width or DEFAULT.width
 end)
@@ -131,12 +182,13 @@ end
 -- Linemode: lsd_size_mtime (size + colored date)
 function Linemode:lsd_size_mtime()
 	local mtime = math.floor(self._file.cha.mtime or 0)
-	local size_s = string.format("%7s", fmt_size(self._file))
+	local size_span = fmt_size_colored(self._file)
 	local date_s = fmt_mtime_colored(mtime)
 
 	-- Return Line composed of two spans (size and date)
 	return ui.Line({
-		ui.Span(size_s .. " "),
+		size_span,
+		ui.Span(" "),
 		date_s,
 	})
 end
