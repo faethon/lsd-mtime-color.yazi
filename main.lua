@@ -113,6 +113,7 @@ local _load_config = ya.sync(function(_, opts)
 	opts = opts or {}
 	CFG.hour_threshold = opts.hour_threshold or DEFAULT.hour_threshold
 	CFG.day_threshold = opts.day_threshold or DEFAULT.day_threshold
+	CFG.month_threshold = opts.month_threshold or DEFAULT.month_threshold
 	CFG.color_hour = opts.color_hour or DEFAULT.color_hour
 	CFG.color_day = opts.color_day or DEFAULT.color_day
 	CFG.color_month = opts.color_month or DEFAULT.color_month
