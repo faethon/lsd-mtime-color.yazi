@@ -1,33 +1,24 @@
--- lsd-mtime-color.yazi
--- A Yazi linemode plugin that colors file mtimes like LSD (LSDeluxe):
---   < 1 hour ago  →  bright green
---   < 1 day ago   →  green
---   older         →  teal/cyan
+-- # ls-deluxe-colors.yazi
 --
--- Installation:
---   ya pkg add faethon/lsd-mtime-color
---   OR copy this file to ~/.config/yazi/plugins/lsd-mtime-color.yazi/main.lua
+-- A [Yazi](https://github.com/sxyazi/yazi) linemode plugin that colors file
+-- modification times and file sizes similar to **LSD (LSDeluxe)**
 --
--- Setup in ~/.config/yazi/init.lua:
---   require("lsd-mtime-color"):setup()
---   -- Optional custom thresholds (in seconds):
---   require("lsd-mtime-color"):setup({
---     hour_threshold = 3600,        -- files newer than this -> bright green
---     day_threshold  = 86400,       -- files newer than this -> green
---     month_threshold = 2592000,    -- files newer than this -> teal
---     color_hour  = "#00d700",      -- bright green
---     color_day   = "#00d787",      -- green
---     color_month = "#00af87",      -- teal
---     color_older = "#00875f",      -- dark teal
---     yazi_age_format = false,      -- show distinct detailed timestamp based on age
---     width = 12                    -- widht to use for padding timestamps
---   })
+-- Coloring of timestamp based on age:
 --
--- Enable in ~/.config/yazi/yazi.toml:
---   [mgr]
---   linemode = "lsd_mtime"          -- date only
---   -- or:
---   linemode = "lsd_size_mtime"     -- size + date
+--    < 1 hour ago  -->  bright green
+--    < 1 day ago   -->  green
+--    < 30 days ago -->  teal
+--    older         -->  dark teal
+--
+-- Coloring of file size based on size:
+--
+--    0 B           --> gray
+--    < 1KB         --> light yellow
+--    < 1MB         --> yellow
+--    < 100MB       --> orange
+--    larger        --> dark orange
+--
+-- See README for installation and configuration
 
 -- Default configuration
 local DEFAULT = {

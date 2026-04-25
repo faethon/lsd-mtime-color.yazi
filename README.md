@@ -1,4 +1,4 @@
-# lsd-mtime-color.yazi
+# ls-deluxe-colors.yazi
 
 A [Yazi](https://github.com/sxyazi/yazi) linemode plugin that colors file
 modification times and file sizes similar to **LSD (LSDeluxe)**
@@ -29,7 +29,7 @@ Example with the default colors, shades of green for timestamp age, and shades o
 
 <img width="616" height="280" alt="image" src="https://github.com/user-attachments/assets/f0c74a3c-cf92-4b42-b33b-8d88d204d50e" />
 
-Please note: the purple color of the directories in this example is from my theme. 
+Please note: the purple color of the directories in this example is from my theme.
 The colors of files, directories, links etc. are not changed by this plugin.
 
 ---
@@ -39,14 +39,14 @@ The colors of files, directories, links etc. are not changed by this plugin.
 **Via Yazi package manager**:
 
 ```sh
-ya pkg add faethon/lsd-mtime-color
+ya pkg add faethon/ls-deluxe-colors
 ```
 
 **Manually:**
 
 ```sh
-mkdir -p ~/.config/yazi/plugins/lsd-mtime-color.yazi
-cp main.lua ~/.config/yazi/plugins/lsd-mtime-color.yazi/main.lua
+mkdir -p ~/.config/yazi/plugins/ls-deluxe-colors.yazi
+cp main.lua ~/.config/yazi/plugins/ls-deluxe-colors.yazi/main.lua
 ```
 
 ---
@@ -56,14 +56,14 @@ cp main.lua ~/.config/yazi/plugins/lsd-mtime-color.yazi/main.lua
 Add to `~/.config/yazi/init.lua`:
 
 ```lua
-require("lsd-mtime-color"):setup()
+require("ls-deluxe-colors"):setup()
 ```
 
 Or with custom settings, change the values accordingly (defaults are shown).
 You only have to include those values you would like to change.
 
 ```lua
-require("lsd-mtime-color"):setup({
+require("ls-deluxe-colors"):setup({
   hour_threshold  = 3600,              -- seconds in an hour
   day_threshold   = 86400,             -- seconds in a day
   month_threshold = 2592000,           -- seconds in 30 days
