@@ -93,7 +93,43 @@ local function size_color(class)
 	end
 end
 
--- Human-readable file size
+-- select color bracket for age
+local function age_color(age)
+	if age < CFG.hour_threshold then
+		return CFG.color_hour
+	elseif age < CFG.day_threshold then
+		return CFG.color_day
+	elseif age < CFG.month_threshold then
+		return CFG.color_month
+	else
+		return CFG.color_older
+	end
+end
+
+-- create timestamp text
+local function age_text(mtime_secs)
+	if CFG.yazi_age_format then
+		-- Format string (same smart logic as linemode-plus / yazi built-in)
+		local today = os.date("*t")
+		local fdate = os.date("*t", mtime_secs)
+
+		if fdate.year == today.year and fdate.month == today.month and fdate.day == today.day then
+			-- Today: show time only
+			return pad(os.date("%H:%M", mtime_secs))
+		elseif fdate.year == today.year then
+			-- This year: show month + day + time
+			return pad(os.date("%b %d %H:%M", mtime_secs))
+		else
+			-- Older: show month + day + year
+			return pad(os.date("%b %d  %Y", mtime_secs))
+		end
+	else -- always show full timestamp
+		-- show month + day + mtime + year
+		return pad(os.date("%b %e %H:%M  %Y", mtime_secs))
+	end
+end
+
+-- Format human-readable file size and pick matching color
 local function fmt_size_colored(file)
 	local sz = file:size()
 	if not sz then
@@ -109,44 +145,13 @@ end
 
 -- Format mtime timestamp and pick mathcing color
 local function fmt_mtime_colored(mtime_secs)
-	local now = os.time()
-	local age = now - mtime_secs
-	local text, color
-
+	local age = os.time() - mtime_secs
 	if mtime_secs == 0 then
 		return ui.Span(pad("")) -- empty padding
 	end
 
-	-- Pick color bracket
-	if age < CFG.hour_threshold then
-		color = CFG.color_hour
-	elseif age < CFG.day_threshold then
-		color = CFG.color_day
-	elseif age < CFG.month_threshold then
-		color = CFG.color_month
-	else
-		color = CFG.color_older
-	end
-
-	if CFG.yazi_age_format then
-		-- Format string (same smart logic as linemode-plus / yazi built-in)
-		local today = os.date("*t")
-		local fdate = os.date("*t", mtime_secs)
-
-		if fdate.year == today.year and fdate.month == today.month and fdate.day == today.day then
-			-- Today: show time only
-			text = pad(os.date("%H:%M", mtime_secs))
-		elseif fdate.year == today.year then
-			-- This year: show month + day + time
-			text = pad(os.date("%b %d %H:%M", mtime_secs))
-		else
-			-- Older: show month + day + year
-			text = pad(os.date("%b %d  %Y", mtime_secs))
-		end
-	else -- always show full timestamp
-		-- show month + day + mtime + year
-		text = pad(os.date("%b %e %H:%M  %Y", mtime_secs))
-	end
+	local color = age_color(age)
+	local text = age_text(mtime_secs)
 
 	return colored_span(text, color)
 end
