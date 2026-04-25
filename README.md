@@ -25,6 +25,14 @@ Coloring of file size based on size:
 The colors can be configured, as well as the thresholds for age and size.
 
 ---
+Example with the default colors, shades of green for timestamp age, and shades of yellow / orange for size:
+
+<img width="616" height="280" alt="image" src="https://github.com/user-attachments/assets/f0c74a3c-cf92-4b42-b33b-8d88d204d50e" />
+
+Please note: the purple color of the directories in this example is from my theme. 
+The colors of files, directories, links etc. are not changed by this plugin.
+
+---
 
 ## Installation
 
